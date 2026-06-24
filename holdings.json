@@ -21,6 +21,15 @@
       "moat": "wide", "integrity": "ok",
       "r_at_iv_calc": 0.045, "iv_asof": "2026-06-23",
       "note": "核心争议=周期顶?+CUDA在推理时代锁定?周期顶压力测试仅$71,尾部重"
-    }
+       },
+    {"ticker": "MSFT"},
+    {"ticker": "NOW"},
+    {"ticker": "ADBE"},
+    {"ticker": "CRM"},
+    {"ticker": "V"},
+    {"ticker": "MA"},
+    {"ticker": "AAPL"},
+    {"ticker": "PFE"},
+    {"ticker": "DASH"}
   ]
 }
