@@ -1,5 +1,5 @@
 {
-  "_instructions": "每只票的 iv_* 三档来自跑 position-thesis-monitor v2.0 深研(§4估值)。IV是慢变量,只在做完整深研或财报后更新此文件;日报脚本每天只拿现价对照。moat: wide|narrow|none。integrity: ok|warn|fail。r_at_iv_calc=算IV时的10Y国债(用于漂移告警)。新增持仓前请先深研得到IV,不要凭感觉填。",
+  "_instructions": "iv_*三档可手动填(来源=手动深研)或省略(自动抓Yahoo Analyst Targets)。手动值优先。最简新增只需{ticker}即可。moat: wide|narrow|none(默认wide)。integrity: ok|warn|fail(默认ok)。r_at_iv_calc=算IV时的10Y国债(用于漂移告警,仅手动IV适用)。",
   "macro": {
     "regime_note": "贵但平静(CAPE高+鹰派Fed)",
     "mos_addon_pp": 10,

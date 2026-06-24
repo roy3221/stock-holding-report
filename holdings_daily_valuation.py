@@ -82,6 +82,35 @@ def fetch_price(tkr):
     raise RuntimeError(f"无法获取 {tkr} 价格")
 
 
+def fetch_iv_estimates(tkr):
+    """从 Yahoo Finance 抓取分析师目标价作为 IV 估算。
+    返回 (conservative, base, optimistic, source) 或 None。"""
+    import yfinance as yf
+    t = yf.Ticker(tkr)
+    try:
+        targets = t.analyst_price_targets
+        if targets is not None:
+            if hasattr(targets, "to_dict"):
+                targets = targets.to_dict()
+            low = targets.get("low")
+            median = targets.get("median") or targets.get("mean")
+            high = targets.get("high")
+            if low and median and high:
+                return float(low), float(median), float(high), "Yahoo Analyst Targets"
+    except Exception:
+        pass
+    try:
+        info = t.info or {}
+        target_low = info.get("targetLowPrice")
+        target_median = info.get("targetMedianPrice") or info.get("targetMeanPrice")
+        target_high = info.get("targetHighPrice")
+        if target_low and target_median and target_high:
+            return float(target_low), float(target_median), float(target_high), "Yahoo Analyst Targets"
+    except Exception:
+        pass
+    return None
+
+
 def fetch_10y():
     import yfinance as yf
     try:
@@ -111,16 +140,26 @@ def analyze(cfg):
         except Exception as e:
             rows.append({"ticker": tkr, "error": str(e)})
             continue
-        ivc, ivb, ivo = h["iv_conservative"], h["iv_base"], h["iv_optimistic"]
+        # IV 来源：优先 holdings.json 手动值，否则自动抓取
+        if h.get("iv_base"):
+            ivc, ivb, ivo = h["iv_conservative"], h["iv_base"], h["iv_optimistic"]
+            iv_source = "手动深研"
+        else:
+            auto = fetch_iv_estimates(tkr)
+            if auto is None:
+                rows.append({"ticker": tkr, "error": "无手动IV且无法获取分析师目标价"})
+                continue
+            ivc, ivb, ivo, iv_source = auto
         ratio_b = px / ivb
         ratio_o = px / ivo if ivo else None
         mos = (1 - px / ivb) * 100        # 对基准 IV 的安全边际（正=低估）
         sig, txt = classify(ratio_b, ratio_o, h.get("moat", "wide"),
                             h.get("integrity", "ok"), addon)
         # 目标买入区间（基准 IV × 护城河档，按宏观叠加同步收紧；Narrow 下界对齐 skill 0.60）
-        if h.get("moat") == "wide":
+        moat = h.get("moat", "wide")
+        if moat == "wide":
             buy_lo, buy_hi = ivb * (0.70 - addon), ivb * (0.85 - addon)
-        elif h.get("moat") == "narrow":
+        elif moat == "narrow":
             buy_lo, buy_hi = ivb * (0.60 - addon), ivb * (0.70 - addon)
         else:
             buy_lo, buy_hi = None, None
@@ -134,7 +173,7 @@ def analyze(cfg):
             "ticker": tkr, "price": px, "ivc": ivc, "ivb": ivb, "ivo": ivo,
             "mos": mos, "sig": sig, "txt": txt,
             "buy_lo": buy_lo, "buy_hi": buy_hi, "r_flag": r_flag,
-            "asof": h.get("iv_asof", "?"),
+            "asof": h.get("iv_asof", "?"), "iv_source": iv_source,
         })
         # 可执行提醒：进入强力/合理买入(附三层全绿门提醒) 或 极端高估
         if sig in ("🟢🟢🟢", "🟢🟢"):
@@ -148,7 +187,7 @@ def analyze(cfg):
 
 # ── 渲染 ────────────────────────────────────────────────────────────────
 DISCLAIMER = ("判定 = position-thesis-monitor Phase 5(买入决策)+ 宏观叠加；"
-              "IV(Phase 4 估值)取自 skill 深研缓存，本脚本不重算 DCF。"
+              "IV来源：手动深研=DCF缓存，Yahoo Analyst Targets=分析师目标价(low/median/high)。"
               "仅供研究与纪律辅助，不构成投资建议。")
 
 def render_text(today, r_now, rows, alerts, macro, addon):
@@ -170,7 +209,8 @@ def render_text(today, r_now, rows, alerts, macro, addon):
         L.append(f"{r['ticker']:<6}{r['price']:>8.2f}{r['mos']:>8.0f}%  {r['sig']} {r['txt']}")
         L.append(f"       IV 保/基/乐: {r['ivc']:.0f}/{r['ivb']:.0f}/{r['ivo']:.0f}"
                  + (f" | 买入区 ${r['buy_lo']:.0f}-{r['buy_hi']:.0f}" if r['buy_lo'] else "")
-                 + f" | IV算于{r['asof']}")
+                 + f" | 来源:{r['iv_source']}"
+                 + (f" | IV算于{r['asof']}" if r['asof'] != '?' else ""))
         if r["r_flag"]:
             L.append(f"       {r['r_flag']}")
     L += ["", "纪律提醒：持有=买入（空仓持现金今天会以现价买吗？）；成本价/浮盈亏不进决策；",
@@ -197,19 +237,22 @@ def render_html(today, r_now, rows, alerts, macro, addon):
              "<th style='text-align:right;padding:6px'>现价</th>"
              "<th style='text-align:right;padding:6px'>安全边际</th>"
              "<th style='text-align:right;padding:6px'>IV 保/基/乐</th>"
+             "<th style='text-align:left;padding:6px'>IV来源</th>"
              "<th style='text-align:left;padding:6px'>判定</th></tr>")
     for r in rows:
         if r.get("error"):
-            h.append(f"<tr><td style='padding:6px'>{r['ticker']}</td><td colspan=4 style='padding:6px;color:#c5221f'>取价失败</td></tr>")
+            h.append(f"<tr><td style='padding:6px'>{r['ticker']}</td><td colspan=5 style='padding:6px;color:#c5221f'>取价失败</td></tr>")
             continue
         c = sig_color(r["sig"])
         extra = f"<br><span style='color:#b06000;font-size:12px'>{r['r_flag']}</span>" if r["r_flag"] else ""
         buy = f"<br><span style='color:#5f6368;font-size:12px'>买入区 ${r['buy_lo']:.0f}–{r['buy_hi']:.0f}</span>" if r['buy_lo'] else ""
+        src_color = "#137333" if r['iv_source'] == "手动深研" else "#1a73e8"
         h.append(f"<tr style='border-top:1px solid #e8eaed'>"
                  f"<td style='padding:6px;font-weight:600'>{r['ticker']}</td>"
                  f"<td style='padding:6px;text-align:right'>${r['price']:.2f}</td>"
                  f"<td style='padding:6px;text-align:right;color:{c}'>{r['mos']:+.0f}%</td>"
                  f"<td style='padding:6px;text-align:right'>{r['ivc']:.0f}/{r['ivb']:.0f}/{r['ivo']:.0f}</td>"
+                 f"<td style='padding:6px;color:{src_color};font-size:12px'>{r['iv_source']}</td>"
                  f"<td style='padding:6px;color:{c}'>{r['sig']} {r['txt']}{buy}{extra}</td></tr>")
     h.append("</table>")
     h.append("<div style='color:#5f6368;font-size:12px;margin-top:14px'>"
