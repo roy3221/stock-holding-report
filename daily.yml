@@ -1,0 +1,19 @@
+name: holdings-daily-valuation
+on:
+  schedule:
+    - cron: '0 14 * * *'   # 14:00 UTC = 7am PDT(夏令时)。冬令时改 '0 15 * * *'
+  workflow_dispatch: {}      # 也可手动触发测试
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install yfinance
+      - name: Send daily valuation email
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+        run: python3 holdings_daily_valuation.py --email
