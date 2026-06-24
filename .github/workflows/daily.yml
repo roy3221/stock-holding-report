@@ -1,7 +1,7 @@
 name: holdings-daily-valuation
 on:
   schedule:
-    - cron: '0 14 * * *'   # 14:00 UTC = 7am PDT(夏令时)。冬令时改 '0 15 * * *'
+    - cron: '37 12 * * *'   # 12:37 UTC = 5:37am PDT(夏令时)。冬令时改 '37 13 * * *'
   workflow_dispatch: {}      # 也可手动触发测试
 jobs:
   run:
