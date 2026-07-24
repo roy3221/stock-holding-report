@@ -1,6 +1,6 @@
 {
-  "_instructions": "每只票的 iv_* 三档来自跑 position-thesis-monitor v2.0 深研(§4估值),折现率统一 4.5%(skill官方口径)。风险靠三道闸(安全边际门槛+宏观+10pp+三层全绿)承担,不抬折现率、不双重计价。IV是慢变量,只在深研/财报后更新。confidence: confirmed=完整深研 / quick=批量快算(OE取fetcher、增长保守假设,待深研升级)。moat: wide|narrow|none。integrity: ok|warn|fail。",
-  "_queued_pending_deepdive": "DASH(ROE负/SBC巨/OE不稳)、NOW(SBC压低GAAP+2025/12 5:1拆股)、MSFT(AI capex需动机判断)、ACN/INTU(fetcher价格疑似错误,需交叉验证) — 暂不纳入,做完整深研或核价后再加。ETF(IAUM/SCHP/TQQQ)不适用所有者盈余,另设规则。",
+  "_instructions": "每只票的 iv_* 三档来自跑 position-thesis-monitor/buffett-value-screener 深研(§4估值),折现率统一取报告当期10Y美债(约4.49%,skill官方口径4.5%附近)。风险靠三道闸(安全边际门槛+宏观+10pp+三层全绿)承担,不抬折现率、不双重计价。IV是慢变量,只在深研/财报后更新。confidence: confirmed=完整深研 / quick=批量快算(OE取fetcher、增长保守假设,待深研升级) / special=OE-DCF方法论不适用(如DASH)。moat: wide|narrow|none。integrity: ok|warn|fail。",
+  "_queued_pending_deepdive": "MSFT(AI capex需动机判断)、ACN/INTU(fetcher价格疑似错误,需交叉验证) — 暂不纳入,做完整深研或核价后再加。ETF(IAUM/SCHP/TQQQ)不适用所有者盈余,另设规则。DASH/NOW已于2026-07-10完成深研,见下方confirmed/special条目。",
   "macro": {
     "regime_note": "贵但平静(CAPE高+鹰派Fed)",
     "mos_addon_pp": 10,
@@ -11,88 +11,88 @@
   "holdings": [
     {
       "ticker": "GOOGL",
-      "iv_conservative": 183, "iv_base": 360, "iv_optimistic": 480,
+      "iv_conservative": 144.25, "iv_base": 315.28, "iv_optimistic": 511.67,
       "moat": "wide", "integrity": "warn", "confidence": "confirmed",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-23",
-      "note": "Integrity⚠️=反垄断连环败诉(非造假);核心争议=$180B+ capex是增长还是浪费"
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10深研重算,较06-23先验(183/360/480)保守/基准档显著下修(-21%/-12%),乐观档基本持平。现价$357.02高于基准IV,无安全边际。Integrity⚠️=反垄断连环败诉(非造假);核心争议=$180B+ capex是增长还是浪费。见reports/GOOGL/GOOGL-value-20260710.md"
     },
     {
       "ticker": "NVDA",
-      "iv_conservative": 145, "iv_base": 235, "iv_optimistic": 313,
+      "iv_conservative": 134.62, "iv_base": 175.26, "iv_optimistic": 200.97,
       "moat": "wide", "integrity": "ok", "confidence": "confirmed",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-23",
-      "note": "核心争议=周期顶?+CUDA在推理时代锁定?周期顶压力测试仅$71,尾部重"
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10深研:正式三档受15%增长率硬顶约束(方法论纪律),较06-23先验(145/235/313)下修。另有不封顶分析师共识参考情景$308.04,与旧先验乐观档$313高度吻合,说明旧先验很可能用了不封顶假设——正式安全边际判断仍以硬顶三档为准。现价$210.96高于基准,溢价20.4%。核心争议=周期顶?+CUDA在推理时代锁定?见reports/NVDA/NVDA-value-20260710.md"
     },
     {
       "ticker": "AAPL",
-      "iv_conservative": 163, "iv_base": 231, "iv_optimistic": 288,
-      "moat": "wide", "integrity": "ok", "confidence": "quick",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-24",
-      "note": "快算:OE≈$112B(资产轻),g1=6%(成熟)。待深研确认服务增长/回购口径"
+      "iv_conservative": 165.23, "iv_base": 190.75, "iv_optimistic": 267.01,
+      "moat": "wide", "integrity": "ok", "confidence": "confirmed",
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10完整深研(升级自quick),较06-24先验(163/231/288)基准/乐观档显著下修。现价$315.32在三档情形下均无安全边际(唯一连乐观档都覆盖不了现价的标的)。CEO交接(Cook→Ternus,2026-09生效)+ Apple Intelligence落后为moat持久度主要疑虑(8/10)。见reports/AAPL/AAPL-value-20260710.md"
     },
     {
       "ticker": "V",
-      "iv_conservative": 412, "iv_base": 582, "iv_optimistic": 723,
-      "moat": "wide", "integrity": "ok", "confidence": "quick",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-24",
-      "note": "快算:OE≈$22B,g1=12%。支付网络双寡头。4.5%下显著低估,靠三道闸把关"
+      "iv_conservative": 397.90, "iv_base": 511.57, "iv_optimistic": 581.03,
+      "moat": "wide", "integrity": "ok", "confidence": "confirmed",
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10深研(升级自quick),较06-24先验(412/582/723)小幅下修。现价$348.97=0.68×基准IV,原始MoS 31.78%本已达标,但宏观+5pp调整后需35%未达标,结论保守化为观望。interchange反垄断和解案为结构性商业风险,非诚信问题。见reports/V/V-value-20260710.md"
     },
     {
       "ticker": "MA",
-      "iv_conservative": 603, "iv_base": 852, "iv_optimistic": 1058,
-      "moat": "wide", "integrity": "ok", "confidence": "quick",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-24",
-      "note": "快算:OE≈$16B,g1=13%。与V高度相关(同一支付赌注),组合层注意集中度"
+      "iv_conservative": 734.18, "iv_base": 995.30, "iv_optimistic": 1135.15,
+      "moat": "wide", "integrity": "ok", "confidence": "confirmed",
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10深研(升级自quick),较06-24先验(603/852/1058)上修约20%。现价$526.74=0.53×基准IV,MoS 47.08%落入强力买入区间,但需与行为面负动量信号交叉解读,不宜仅凭DCF满仓买入。与V高度相关(同一支付赌注),组合层注意集中度。见reports/MA/MA-value-20260710.md"
     },
     {
       "ticker": "SPGI",
-      "iv_conservative": 491, "iv_base": 696, "iv_optimistic": 865,
-      "moat": "wide", "integrity": "ok", "confidence": "quick",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-24",
-      "note": "快算:OE≈$5.3B,g1=10%。评级+指数寡头。EPV曾是最强零增长信号"
+      "iv_conservative": 476.28, "iv_base": 624.06, "iv_optimistic": 730.48,
+      "moat": "wide", "integrity": "ok", "confidence": "confirmed",
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10深研(升级自quick),较06-24先验(491/696/865)小幅下修。现价$430.50=0.69×基准IV,原始MoS 31.02%达标但宏观调整后需35%未达标,落入观望;保守情景MoS仅9.61%,三票中估值对增长假设最敏感。2026-02主动发布偏保守指引+CEO个人增持,治理面正面。见reports/SPGI/SPGI-value-20260710.md"
     },
     {
       "ticker": "ADBE",
-      "iv_conservative": 497, "iv_base": 704, "iv_optimistic": 875,
-      "moat": "narrow", "integrity": "ok", "confidence": "quick",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-24",
-      "note": "快算:OE≈$7.2B,g1=10%。Narrow(AI颠覆风险)→无强力档、要求≥30%安全边际"
+      "iv_conservative": 625.37, "iv_base": 712.91, "iv_optimistic": 955.30,
+      "moat": "narrow", "integrity": "ok", "confidence": "confirmed",
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10深研(升级自quick),标准三档较06-24先验(497/704/875)大幅上修,但零增长压力测试IV仅$373.29,安全边际对增长假设高度敏感。$1 Test失效(估值高位大额回购$35B+)+CEO交棒+CFO离职,管理层快查触发深挖但非诚信问题。Narrow(AI颠覆风险)→无强力档、要求≥30%安全边际。见reports/ADBE/ADBE-value-20260710.md"
     },
     {
       "ticker": "CRM",
-      "iv_conservative": 369, "iv_base": 522, "iv_optimistic": 649,
-      "moat": "wide", "integrity": "ok", "confidence": "quick",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-24",
-      "note": "快算:OE≈$11B,g1=10%。护城河wide偏边缘(竞争激烈),深研时复核"
+      "iv_conservative": 313.27, "iv_base": 449.74, "iv_optimistic": 621.60,
+      "moat": "wide", "integrity": "ok", "confidence": "confirmed",
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10深研(升级自quick),较06-24先验(369/522/649)小幅下修。现价$163.32=基准IV的36%,安全边际63.7%远超Wide Moat门槛。$1 Test失效,Benioff主导巨额并购史(Slack/Tableau/MuleSoft/Informatica合计~$58B)为治理关注点,非诚信问题,触发管理层深挖(创始人驱动型公司)。见reports/CRM/CRM-value-20260710.md"
     },
     {
       "ticker": "DASH",
-      "iv_conservative": 0, "iv_base": 0, "iv_optimistic": 0,
+      "iv_conservative": 71.41, "iv_base": 113.41, "iv_optimistic": 204.47,
       "moat": "narrow", "integrity": "ok", "confidence": "special",
       "position_flag": "overweight_trim_only",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-24",
-      "note": "已超配(雇主+RSU+持仓三重~76%)·只减不加·OE仅$0.8B(97×)OE-DCF不适用,属增长期平台。日报不对DASH发买入信号;相关动作走position-thesis-monitor的组合集中度复盘,优先用长期资本利得批次减仓"
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10深研:机械OE-DCF给出保守$71.41/基准$113.41(乐观$204.47为超15%封顶的非合规参考值,仅供了解量级);成长期补充框架(EV/Revenue≈5.68x、Rule of 40=46.3)判定现价$191.82为'合理偏乐观定价'而非低估,与机械DCF结论方向一致偏空。已超配(雇主+RSU+持仓三重~76%)·只减不加·日报不对DASH发买入信号;相关动作走position-thesis-monitor组合集中度复盘,优先用长期资本利得批次减仓。见reports/DASH/DASH-value-20260710.md"
     },
     {
       "ticker": "META",
-      "iv_conservative": 432, "iv_base": 727, "iv_optimistic": 957,
-      "moat": "wide", "integrity": "warn", "confidence": "quick",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-24",
-      "note": "快算:OE区间$30-49B(AI capex cx/da 3.74×压制,同GOOGL口径)。Integrity⚠️偏重(近❌):2026陪审团认定就平台安全误导用户+儿童危害、WhatsApp加密承诺涉假——系统性损害用户,比GOOGL纯反垄断重。若你更看重用户导向可手动改fail"
+      "iv_conservative": 419.14, "iv_base": 658.15, "iv_optimistic": 897.17,
+      "moat": "wide", "integrity": "warn", "confidence": "confirmed",
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10深研(升级自quick,EPV锚点为主,较06-24先验432/727/957小幅下修);另有含增长假设的参考档895.73/1406.52/1917.30,现价$667.58打对折即进入强力买入区,分歧本质是对AI capex能否转化增长的押注。Integrity⚠️持续加重:2026-03新墨西哥陪审团裁定'故意从事不公平和欺骗性商业行为'罚$375M+加州陪审团裁定产品成瘾性设计担责$6M+联邦MDL 3047庭前主动和解回避陪审团审理,Reality Labs累计亏损$83.5B,双层股权控制。管理层快查★★☆☆☆,已被列为'待验证的一票否决候选项'——若你更看重用户导向可手动改fail。见reports/META/META-value-20260710.md"
     },
     {
       "ticker": "PFE",
-      "iv_conservative": 28, "iv_base": 32, "iv_optimistic": 39,
-      "moat": "narrow", "integrity": "ok", "confidence": "quick",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-24",
-      "note": "快算:衰退股(营收-15%/净利-37%,COVID悬崖+专利悬崖),用零/负增长。Narrow→无强力档、需≥30%安全边际。EPV零增长$34>现价$24=市场price-in衰退;核心问题是衰退会不会快于-3%/年;股息可持续性(payout高)重点盯"
+      "iv_conservative": 30.38, "iv_base": 36.92, "iv_optimistic": 43.47,
+      "moat": "narrow", "integrity": "ok", "confidence": "confirmed",
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10深研(升级自quick,含负增长DCF为主档),较06-24先验(28/32/39)小幅上修;EPV零增长参考档(36.94/44.89/52.85)反而偏乐观非保守下界,需说明。现价$24.17较基准折价34.5%,未达Narrow Moat所需≥45%安全边际,落入观望。核心风险=FCF/分红覆盖率仅96.97%(股息已部分依赖非FCF资金)+Seagen($43B)/Metsera(~$10B)连续大额并购;PFE本身未通过阶段一硬门槛初筛(ROE 8.49%/D-E 0.71/FCF未增长),估值结果仅供研究参考。见reports/PFE/PFE-value-20260710.md"
     },
     {
       "ticker": "NOW",
-      "iv_conservative": 85, "iv_base": 154, "iv_optimistic": 194,
-      "moat": "wide", "integrity": "ok", "confidence": "quick",
-      "r_at_iv_calc": 0.045, "iv_asof": "2026-06-24",
-      "note": "📌Split:2025-12 5:1(数据已拆股后口径)。快算:SBC严重压低GAAP净利,OE保守=GAAP NI $2B/基准$3B/乐观$3.8B(近FCF)。过去一年-50%(SaaS被AI恐慌错杀);Wide(工作流平台高转换成本)。4.5%下显著低估,靠三道闸把关"
+      "iv_conservative": 89.29, "iv_base": 235.44, "iv_optimistic": 269.79,
+      "moat": "wide", "integrity": "ok", "confidence": "confirmed",
+      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
+      "note": "07-10完整深研(升级自quick,5:1拆股已调整口径)。三档对应两种SBC口径:保守=Buffett严格口径(不加回SBC,OE≈GAAP NI);基准/乐观=标准FCF口径(SBC作非现金费用加回,市场惯例)——TTM SBC($2,032M)已超GAAP净利润本身(115.7%),报告不裁定唯一正确答案,由用户按SBC本质判断选锚点。较06-24先验(85/154/194)基准/乐观档大幅上修(+53%/+39%)。续约率97%连续6季持平反驳AI颠覆担忧。见reports/NOW/NOW-value-20260710.md"
     }
   ]
 }
