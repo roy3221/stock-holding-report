@@ -1,6 +1,6 @@
 {
   "_instructions": "每只票的 iv_* 三档来自跑 position-thesis-monitor/buffett-value-screener 深研(§4估值),折现率统一取报告当期10Y美债(约4.49%,skill官方口径4.5%附近)。风险靠三道闸(安全边际门槛+宏观+10pp+三层全绿)承担,不抬折现率、不双重计价。IV是慢变量,只在深研/财报后更新。confidence: confirmed=完整深研 / quick=批量快算(OE取fetcher、增长保守假设,待深研升级) / special=OE-DCF方法论不适用(如DASH)。moat: wide|narrow|none。integrity: ok|warn|fail。",
-  "_queued_pending_deepdive": "MSFT(AI capex需动机判断)、ACN/INTU(fetcher价格疑似错误,需交叉验证) — 暂不纳入,做完整深研或核价后再加。ETF(IAUM/SCHP/TQQQ)不适用所有者盈余,另设规则。DASH/NOW已于2026-07-10完成深研,见下方confirmed/special条目。",
+  "_queued_pending_deepdive": "MSFT/ACN/INTU已于2026-07-24完成完整深研,见下方holdings条目(ACN/INTU此前的fetcher价格疑似错误已排查:三/四源交叉验证确认现价无误,原问题是搜索误把前一日收盘当现价,非数据源系统性错误)。ETF(IAUM/SCHP/TQQQ)不适用所有者盈余,另设规则。DASH/NOW已于2026-07-10完成深研,见下方confirmed/special条目。",
   "macro": {
     "regime_note": "贵但平静(CAPE高+鹰派Fed)",
     "mos_addon_pp": 10,
@@ -93,6 +93,27 @@
       "moat": "wide", "integrity": "ok", "confidence": "confirmed",
       "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
       "note": "07-10完整深研(升级自quick,5:1拆股已调整口径)。三档对应两种SBC口径:保守=Buffett严格口径(不加回SBC,OE≈GAAP NI);基准/乐观=标准FCF口径(SBC作非现金费用加回,市场惯例)——TTM SBC($2,032M)已超GAAP净利润本身(115.7%),报告不裁定唯一正确答案,由用户按SBC本质判断选锚点。较06-24先验(85/154/194)基准/乐观档大幅上修(+53%/+39%)。续约率97%连续6季持平反驳AI颠覆担忧。见reports/NOW/NOW-value-20260710.md"
+    },
+    {
+      "ticker": "MSFT",
+      "iv_conservative": 310.23, "iv_base": 578.02, "iv_optimistic": 796.40,
+      "moat": "wide", "integrity": "ok", "confidence": "confirmed",
+      "r_at_iv_calc": 0.0471, "iv_asof": "2026-07-24",
+      "note": "07-24首次完整深研(此前从未研究过,原holdings.json仅标注待深研)。采用TTM(截至2026-03-31)而非FY2025作OE基准年,因capex强度持续快速攀升(FY2025 CapEx $64.6B→TTM $97.2B,+50.6%)。三档跨度2.6倍($310-796)本质是'AI capex是维护性支出还是增长性投资'的定性判断,非数据精度问题。现价$384.89恰好卡在保守IV之上、基准IV之下:保守口径下溢价24%,基准口径下折价33.4%。宏观黄灯(CAPE>35)+10pp调整后现价落入'观望'区间,仓位上限5%。OpenAI反垄断审查+Musk诉讼为尾部风险,非管理层诚信问题。见reports/MSFT/MSFT-value-20260724.md"
+    },
+    {
+      "ticker": "ACN",
+      "iv_conservative": 241.19, "iv_base": 275.19, "iv_optimistic": 315.33,
+      "moat": "narrow", "integrity": "ok", "confidence": "confirmed",
+      "r_at_iv_calc": 0.0471, "iv_asof": "2026-07-24",
+      "note": "07-24首次完整深研(此前从未研究过)。原holdings.json标注'fetcher价格疑似错误需交叉验证'——本次四源交叉验证(Yahoo/Investing.com/MarketBeat/StockAnalysis,最大偏差0.84%)确认现价$146.56无误,此前问题是通用搜索一度把前一日收盘$138.74误标为现价,非数据源系统性错误。统计层面深度低估(P/E 12x、FCF Yield 11.7%、较基准折价46.7%),但护城河因AI结构性颠覆担忧下修为Narrow(7/10,踩在Wide门槛边缘),叠加当前宏观最严格50%安全边际要求,现价较买入触发价(~$137.60)仍高6.5%,落入观望。最大风险非增速放缓(压力测试后仍有37%安全边际)而是AI是否实质侵蚀定价权/毛利率(毛利率永久侵蚀5pp会使安全边际从47%骤降至8.6%,Infosys/Wipro同期暴跌为行业级佐证)。见reports/ACN/ACN-value-20260724.md"
+    },
+    {
+      "ticker": "INTU",
+      "iv_conservative": 304.47, "iv_base": 500.82, "iv_optimistic": 725.66,
+      "moat": "narrow", "integrity": "ok", "confidence": "confirmed",
+      "r_at_iv_calc": 0.09, "iv_asof": "2026-07-24",
+      "note": "07-24首次完整深研(此前从未研究过)。原holdings.json标注'fetcher价格疑似错误需交叉验证'——本次三源交叉验证(StockAnalysis $294.59/Yahoo $294.26/MarketBeat $294.53,偏差0.02%)确认$294.53为真实现价,非数据错误:INTU自2025-07-30历史高点$813.70真实暴跌63.8%,触发点是2026-05-20 FY26Q3财报后TurboTax低端客户流失+17%+裁员重组+证券欺诈集体诉讼+Morningstar护城河下调至Narrow(6/10)。⚠️主用折现率r=9%(非标准10Y美债4.71%口径)——因当前存在真实未解决的结构性不确定性,不满足'高确定性现金流'假设;理论上限口径(r=4.71%)会得到高77%的IV($889基准 vs $501),此方法论分歧已显式记录。价值临界(保守档$304.47已无安全边际,基准档$500.82折价41.2%)×行业逆风(IGV YTD约-15.7% vs XLK+24%)→观望区,不建议现价新建标准仓位。触发管理层深挖(★★★):资本配置强(危机后逆势回购$16亿)但CEO财报前售股41,000股是否属10b5-1计划未能证实。FY26Q4财报2026-08-20盘后,是解决估值分歧的关键验证点。见reports/INTU/INTU-value-20260724.md"
     }
   ]
 }
