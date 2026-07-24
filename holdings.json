@@ -11,10 +11,10 @@
   "holdings": [
     {
       "ticker": "GOOGL",
-      "iv_conservative": 144.25, "iv_base": 315.28, "iv_optimistic": 511.67,
+      "iv_conservative": 67.68, "iv_base": 259.75, "iv_optimistic": 556.53,
       "moat": "wide", "integrity": "warn", "confidence": "confirmed",
-      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
-      "note": "07-10深研重算,较06-23先验(183/360/480)保守/基准档显著下修(-21%/-12%),乐观档基本持平。现价$357.02高于基准IV,无安全边际。Integrity⚠️=反垄断连环败诉(非造假);核心争议=$180B+ capex是增长还是浪费。见reports/GOOGL/GOOGL-value-20260710.md"
+      "r_at_iv_calc": 0.0471, "iv_asof": "2026-07-24",
+      "note": "07-24 FY26Q2财报后重算(较07-10:144.25/315.28/511.67),改用TTM基准年(capex轨迹使FY2025基准过时),三档区间不是收窄而是撕裂更大(保守-53%/基准-17.6%/乐观+8.8%)。Capex指引再上修至$195-205B,触发史上首次单季FCF为负(-$5.9B)+史上首次股权稀释融资($69.9B含Berkshire $10B私募,伯克希尔持仓增至~$41B第4大重仓)。现价$319.74较基准IV溢价23.1%(较07-10的13.2%恶化),无安全边际。'$180B+ capex是增长还是浪费'争议未解,两边证据同时增强。Integrity⚠️=DOJ搜索案已favorable解决(Chrome保留),但独立AdTech案(AdX/DFP)未决且Google Network收入连续两季下滑。象限维持价值🔴×时机🔴(观望),持仓者持有不加仓。见reports/GOOGL/GOOGL-value-20260724.md"
     },
     {
       "ticker": "NVDA",
@@ -89,10 +89,10 @@
     },
     {
       "ticker": "NOW",
-      "iv_conservative": 89.29, "iv_base": 235.44, "iv_optimistic": 269.79,
+      "iv_conservative": 83.64, "iv_base": 229.39, "iv_optimistic": 286.94,
       "moat": "wide", "integrity": "ok", "confidence": "confirmed",
-      "r_at_iv_calc": 0.0449, "iv_asof": "2026-07-10",
-      "note": "07-10完整深研(升级自quick,5:1拆股已调整口径)。三档对应两种SBC口径:保守=Buffett严格口径(不加回SBC,OE≈GAAP NI);基准/乐观=标准FCF口径(SBC作非现金费用加回,市场惯例)——TTM SBC($2,032M)已超GAAP净利润本身(115.7%),报告不裁定唯一正确答案,由用户按SBC本质判断选锚点。较06-24先验(85/154/194)基准/乐观档大幅上修(+53%/+39%)。续约率97%连续6季持平反驳AI颠覆担忧。见reports/NOW/NOW-value-20260710.md"
+      "r_at_iv_calc": 0.0471, "iv_asof": "2026-07-24",
+      "note": "07-24 FY26Q2财报后重算(较07-10:89.29/235.44/269.79),三档结构不变(保守=Buffett严格口径不加回SBC/基准&乐观=标准FCF口径加回SBC)。续约率97%→98%创新高,继续反驳AI颠覆SaaS叙事;但GAAP营业利润率11.1%→4.1%骤降、净利润首次同比转负(-22.6%,主因Armis/Veza并购摊销激增+$194M),资产负债表从净现金$2,751M翻转为净负债~$810M(D/E 0.21→0.60),SBC/净利润比恶化至160.9%。乐观档$286.94看似上升但系并购摊销会计假象,需打折看待。管理层评分★★★★→★★★(诚信度/资本配置双双扣分)。现价$98.78较基准折价56.9%仍属强力买入区间,但确信度下调,建议小仓位试探不加仓,待Q3财报验证毛利率修复。见reports/NOW/NOW-value-20260724.md"
     },
     {
       "ticker": "MSFT",
